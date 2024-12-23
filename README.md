@@ -60,7 +60,7 @@ Welcome to my GitHub repository! This collection includes various academic proje
    - **Key Features**:  
      - Voltage regulation using diodes  
      - Circuit simulation and analysis  
-   - **Folder**: `Phone Charger`  
+   - **Folder**: `Phone Charger Using Diodes`  
 
 ---
 
