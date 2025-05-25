@@ -1,0 +1,210 @@
+# do BitonicSorter.do
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:43:27 on May 24,2025
+# vlog -work work BitonicSorter.vo 
+# -- Compiling module BitonicSorter
+# 
+# Top level modules:
+# 	BitonicSorter
+# End time: 16:43:30 on May 24,2025, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 16:43:30 on May 24,2025
+# vlog -work work Waveform.vwf.vt 
+# -- Compiling module BitonicSorter_vlg_vec_tst
+# 
+# Top level modules:
+# 	BitonicSorter_vlg_vec_tst
+# End time: 16:43:31 on May 24,2025, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vsim -voptargs=""+acc"" -c -t 1ps -L cyclonev_ver -L altera_ver -L altera_mf_ver -L 220model_ver -L sgate_ver -L altera_lnsim_ver work.BitonicSorter_vlg_vec_tst 
+# Start time: 16:43:33 on May 24,2025
+# Loading work.BitonicSorter_vlg_vec_tst
+# Loading work.BitonicSorter
+# Loading cyclonev_ver.cyclonev_io_obuf
+# Loading cyclonev_ver.cyclonev_io_ibuf
+# Loading cyclonev_ver.cyclonev_lcell_comb
+# Loading cyclonev_ver.cyclonev_clkena
+# Loading altera_ver.dffeas
+# Loading altera_ver.PRIM_GDFF_LOW
+# ** Warning: Design size of 33786 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# after#25
+# Simulation time: 0 ps
+# Simulation time: 0 ps
+# Simulation time: 0 ps
+# Simulation time: 0 ps
+# Simulation time: 0 ps
+# Simulation time: 0 ps
+# Simulation time: 0 ps
+# Simulation time: 0 ps
+# Simulation time: 41500 ps
+# Simulation time: 41500 ps
+# Simulation time: 41500 ps
+# Simulation time: 41500 ps
+# Simulation time: 41500 ps
+# Simulation time: 41500 ps
+# Simulation time: 41500 ps
+# Simulation time: 41500 ps
+# Simulation time: 94500 ps
+# Simulation time: 94500 ps
+# Simulation time: 94500 ps
+# Simulation time: 94500 ps
+# Simulation time: 94500 ps
+# Simulation time: 94500 ps
+# Simulation time: 94500 ps
+# Simulation time: 94500 ps
+# Simulation time: 154500 ps
+# Simulation time: 154500 ps
+# Simulation time: 154500 ps
+# Simulation time: 154500 ps
+# Simulation time: 154500 ps
+# Simulation time: 154500 ps
+# Simulation time: 154500 ps
+# Simulation time: 154500 ps
+# Simulation time: 210500 ps
+# Simulation time: 210500 ps
+# Simulation time: 210500 ps
+# Simulation time: 210500 ps
+# Simulation time: 210500 ps
+# Simulation time: 210500 ps
+# Simulation time: 210500 ps
+# Simulation time: 210500 ps
+# Simulation time: 267500 ps
+# Simulation time: 267500 ps
+# Simulation time: 267500 ps
+# Simulation time: 267500 ps
+# Simulation time: 267500 ps
+# Simulation time: 267500 ps
+# Simulation time: 267500 ps
+# Simulation time: 267500 ps
+# Simulation time: 315500 ps
+# Simulation time: 315500 ps
+# Simulation time: 315500 ps
+# Simulation time: 315500 ps
+# Simulation time: 315500 ps
+# Simulation time: 315500 ps
+# Simulation time: 315500 ps
+# Simulation time: 361500 ps
+# Simulation time: 361500 ps
+# Simulation time: 361500 ps
+# Simulation time: 361500 ps
+# Simulation time: 361500 ps
+# Simulation time: 361500 ps
+# Simulation time: 361500 ps
+# Simulation time: 361500 ps
+# Simulation time: 396500 ps
+# Simulation time: 396500 ps
+# Simulation time: 396500 ps
+# Simulation time: 396500 ps
+# Simulation time: 396500 ps
+# Simulation time: 396500 ps
+# Simulation time: 396500 ps
+# Simulation time: 396500 ps
+# Simulation time: 432500 ps
+# Simulation time: 432500 ps
+# Simulation time: 432500 ps
+# Simulation time: 432500 ps
+# Simulation time: 432500 ps
+# Simulation time: 432500 ps
+# Simulation time: 432500 ps
+# Simulation time: 432500 ps
+# Simulation time: 477500 ps
+# Simulation time: 477500 ps
+# Simulation time: 477500 ps
+# Simulation time: 477500 ps
+# Simulation time: 477500 ps
+# Simulation time: 477500 ps
+# Simulation time: 477500 ps
+# Simulation time: 477500 ps
+# Simulation time: 511500 ps
+# Simulation time: 511500 ps
+# Simulation time: 511500 ps
+# Simulation time: 511500 ps
+# Simulation time: 511500 ps
+# Simulation time: 511500 ps
+# Simulation time: 511500 ps
+# Simulation time: 511500 ps
+# Simulation time: 542500 ps
+# Simulation time: 542500 ps
+# Simulation time: 542500 ps
+# Simulation time: 542500 ps
+# Simulation time: 542500 ps
+# Simulation time: 542500 ps
+# Simulation time: 542500 ps
+# Simulation time: 542500 ps
+# Simulation time: 576500 ps
+# Simulation time: 576500 ps
+# Simulation time: 576500 ps
+# Simulation time: 576500 ps
+# Simulation time: 576500 ps
+# Simulation time: 576500 ps
+# Simulation time: 576500 ps
+# Simulation time: 576500 ps
+# Simulation time: 608500 ps
+# Simulation time: 608500 ps
+# Simulation time: 608500 ps
+# Simulation time: 608500 ps
+# Simulation time: 608500 ps
+# Simulation time: 608500 ps
+# Simulation time: 608500 ps
+# Simulation time: 608500 ps
+# Simulation time: 647500 ps
+# Simulation time: 647500 ps
+# Simulation time: 647500 ps
+# Simulation time: 647500 ps
+# Simulation time: 647500 ps
+# Simulation time: 647500 ps
+# Simulation time: 647500 ps
+# Simulation time: 647500 ps
+# Simulation time: 690500 ps
+# Simulation time: 690500 ps
+# Simulation time: 690500 ps
+# Simulation time: 690500 ps
+# Simulation time: 690500 ps
+# Simulation time: 690500 ps
+# Simulation time: 690500 ps
+# Simulation time: 690500 ps
+# Simulation time: 745500 ps
+# Simulation time: 745500 ps
+# Simulation time: 745500 ps
+# Simulation time: 745500 ps
+# Simulation time: 745500 ps
+# Simulation time: 745500 ps
+# Simulation time: 745500 ps
+# Simulation time: 796500 ps
+# Simulation time: 796500 ps
+# Simulation time: 796500 ps
+# Simulation time: 796500 ps
+# Simulation time: 796500 ps
+# Simulation time: 796500 ps
+# Simulation time: 796500 ps
+# Simulation time: 796500 ps
+# Simulation time: 851500 ps
+# Simulation time: 851500 ps
+# Simulation time: 851500 ps
+# Simulation time: 851500 ps
+# Simulation time: 851500 ps
+# Simulation time: 851500 ps
+# Simulation time: 851500 ps
+# Simulation time: 851500 ps
+# Simulation time: 896500 ps
+# Simulation time: 896500 ps
+# Simulation time: 896500 ps
+# Simulation time: 896500 ps
+# Simulation time: 896500 ps
+# Simulation time: 896500 ps
+# Simulation time: 896500 ps
+# Simulation time: 896500 ps
+# Simulation time: 945500 ps
+# Simulation time: 945500 ps
+# Simulation time: 945500 ps
+# Simulation time: 945500 ps
+# Simulation time: 945500 ps
+# Simulation time: 945500 ps
+# Simulation time: 945500 ps
+# ** Note: $finish    : Waveform.vwf.vt(172)
+#    Time: 1 us  Iteration: 0  Instance: /BitonicSorter_vlg_vec_tst
+# End time: 16:50:56 on May 24,2025, Elapsed time: 0:07:23
+# Errors: 0, Warnings: 1

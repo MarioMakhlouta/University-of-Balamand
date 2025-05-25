@@ -1,0 +1,22 @@
+
+State Machine - |Project|keypadController:ctrl|state
+Name state.LOCK state.CLEAR state.DELETE state.STORE state.WAIT_INPUT state.IDLE 
+state.IDLE 0 0 0 0 0 0 
+state.WAIT_INPUT 0 0 0 0 1 1 
+state.STORE 0 0 0 1 0 1 
+state.DELETE 0 0 1 0 0 1 
+state.CLEAR 0 1 0 0 0 1 
+state.LOCK 1 0 0 0 0 1 
+
+State Machine - |Project|KeyPad:c2|state_reg
+Name state_reg.state9 state_reg.state8 state_reg.state7 state_reg.state6 state_reg.state5 state_reg.state4 state_reg.state3 state_reg.state2 state_reg.state1 state_reg.state0 
+state_reg.state0 0 0 0 0 0 0 0 0 0 0 
+state_reg.state1 0 0 0 0 0 0 0 0 1 1 
+state_reg.state2 0 0 0 0 0 0 0 1 0 1 
+state_reg.state3 0 0 0 0 0 0 1 0 0 1 
+state_reg.state4 0 0 0 0 0 1 0 0 0 1 
+state_reg.state5 0 0 0 0 1 0 0 0 0 1 
+state_reg.state6 0 0 0 1 0 0 0 0 0 1 
+state_reg.state7 0 0 1 0 0 0 0 0 0 1 
+state_reg.state8 0 1 0 0 0 0 0 0 0 1 
+state_reg.state9 1 0 0 0 0 0 0 0 0 1 

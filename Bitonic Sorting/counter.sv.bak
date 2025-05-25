@@ -1,0 +1,2 @@
+module counter (input logic clk, rstN, output logic [3:0] y);
+

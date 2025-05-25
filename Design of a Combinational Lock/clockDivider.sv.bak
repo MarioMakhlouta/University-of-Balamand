@@ -1,0 +1,45 @@
+module clockDivider (
+    input logic clk,           // 50 MHz system clock
+    input logic rstN,          // Active-low reset
+    output logic tick_20ms // 20 ms clock output (50 Hz)
+);
+    // ========== CLOCK DIVIDER (50 MHz → 5 ms, 200 Hz) ==========
+    // 5 ms period = 250,000 cycles at 50 MHz
+    // 50,000,000 Hz * 0.005 s = 250,000 cycles
+    // 50% duty: high for 125,000, low for 125,000
+    logic [17:0] clk_div_counter;  // 18 bits enough for 250,000
+    logic clk_out;
+
+    always_ff @(posedge clk or negedge rstN) begin
+        if (!rstN) begin
+            clk_div_counter <= 0;
+        end 
+        else if (clk_div_counter == 18'd249_999) begin  
+            clk_div_counter <= 0;   // Reset when reaching 250,000 cycles (5 ms)
+        end 
+        else begin
+            clk_div_counter <= clk_div_counter + 1;
+        end
+    end
+
+    // Generate 50% duty cycle: high for 125,000 cycles, low for 125,000 cycles
+    always_ff @(posedge clk, negedge rstN) begin
+        if (!rstN) begin
+            clk_out <= 0;
+        end 
+        else if (clk_div_counter < 18'd125_000) begin
+            clk_out <= 1;
+        end 
+        else begin
+            clk_out <= 0;
+        end
+    end
+
+    // Final clock output (clk_out_final follows clk_out)
+    always_ff @(posedge clk or negedge rstN) begin
+        if (!rstN)
+            tick_20ms <= 0;
+        else
+            tick_20ms <= clk_out;
+    end
+endmodule

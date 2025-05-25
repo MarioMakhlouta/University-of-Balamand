@@ -1,0 +1,98 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/sony/Desktop/UOB/Semester 7 (Spring 24-25)/CPEN313 (Computer Embedded Systems)/Project/simulation/qsim
+vBitonicSorter
+!s110 1748094210
+!i10b 1
+!s100 7VW_0aLk4KLL25BzN2`bk1
+I`PBmh9ICDMjCIaWb8J]D[3
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1748094200
+Z2 8BitonicSorter.vo
+Z3 FBitonicSorter.vo
+Z4 L0 31
+Z5 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1748094207.000000
+Z6 !s107 BitonicSorter.vo|
+Z7 !s90 -work|work|BitonicSorter.vo|
+!i113 1
+Z8 o-work work
+Z9 tCvgOpt 0
+n@bitonic@sorter
+vBitonicSorter64
+!s110 1747744719
+!i10b 1
+!s100 :YCIhCXX@<64jZYS2QGWL3
+IVYTC[_]I=7HQf2AY:C7n41
+R1
+R0
+w1747744714
+R2
+R3
+R4
+R5
+r1
+!s85 0
+31
+!s108 1747744716.000000
+R6
+R7
+!i113 1
+R8
+R9
+n@bitonic@sorter64
+vBitonicSorter64_vlg_vec_tst
+!s110 1747744720
+!i10b 1
+!s100 AmNQ^:7KD7E:NhGHBe?An2
+IGEUX365Yg:oIRM@0YJe:>2
+R1
+R0
+w1747744707
+8Waveform1.vwf.vt
+FWaveform1.vwf.vt
+Z10 L0 29
+R5
+r1
+!s85 0
+31
+!s108 1747744720.000000
+!s107 Waveform1.vwf.vt|
+!s90 -work|work|Waveform1.vwf.vt|
+!i113 1
+R8
+R9
+n@bitonic@sorter64_vlg_vec_tst
+vBitonicSorter_vlg_vec_tst
+!s110 1748094211
+!i10b 1
+!s100 ^U4mJd?7Aa:4WdW7^TK5M1
+I7m5CP[7a?iHPB>f3hjNV01
+R1
+R0
+w1748094193
+8Waveform.vwf.vt
+FWaveform.vwf.vt
+R10
+R5
+r1
+!s85 0
+31
+!s108 1748094210.000000
+!s107 Waveform.vwf.vt|
+!s90 -work|work|Waveform.vwf.vt|
+!i113 1
+R8
+R9
+n@bitonic@sorter_vlg_vec_tst

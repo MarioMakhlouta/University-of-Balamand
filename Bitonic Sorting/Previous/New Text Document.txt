@@ -1,0 +1,535 @@
+module bitonic_sort (input logic [7:0] i0, i1, i2, i3, i4, i5, i6, i7, i8,
+
+i9, i10, i11, i12, i13, i14, i15,
+
+input logic clk, arstN,
+
+output logic [7:0] q0, q1, q2, q3, q4, q5, q6, q7,
+
+q8, q9, q10, q11, q12, q13, q14, q15);
+
+
+typedef enum logic [3:0] {state0 = 4'b0001,
+
+state1 = 4'b0010,
+
+state2 = 4'b0100,
+
+state3 = 4'b1000} state_t;
+
+state_t state_next, state_reg;
+
+
+logic [7:0] r_next0, r_next1, r_next2, r_next3,
+
+r_next4, r_next5, r_next6, r_next7,
+
+r_next8, r_next9, r_next10, r_next11,
+
+r_next12, r_next13, r_next14, r_next15,
+
+r_reg0, r_reg1, r_reg2, r_reg3,
+
+r_reg4, r_reg5, r_reg6, r_reg7,
+
+r_reg8, r_reg9, r_reg10, r_reg11,
+
+r_reg12, r_reg13, r_reg14, r_reg15;
+
+logic CE;
+
+
+logic [7:0] l0_c0, l0_c1, l0_c2, l0_c3, l0_c4, l0_c5, l0_c6, l0_c7,
+
+l1_c0, l1_c1, l1_c2, l1_c3, l1_c4, l1_c5, l1_c6, l1_c7;
+
+logic [7:0] a_d;
+
+logic [1:0] s1;
+
+logic [6:0] s2;
+
+logic [7:0] int_q0, int_q1, int_q2, int_q3, int_q4, int_q5, int_q6, int_q7,
+
+int_q8, int_q9, int_q10, int_q11, int_q12, int_q13, int_q14, int_q15;
+
+
+logic [3:0] count_reg, count_next;
+
+
+always_ff @(posedge clk, negedge arstN)
+
+if(!arstN) begin
+
+state_reg <= state0;
+
+r_reg0 <= i0;
+
+r_reg1 <= i1;
+
+r_reg2 <= i2;
+
+r_reg3 <= i3;
+
+r_reg4 <= i4;
+
+r_reg5 <= i5;
+
+r_reg6 <= i6;
+
+r_reg7 <= i7;
+
+r_reg8 <= i8;
+
+r_reg9 <= i9;
+
+r_reg10 <= i10;
+
+r_reg11 <= i11;
+
+r_reg12 <= i12;
+
+r_reg13 <= i13;
+
+r_reg14 <= i14;
+
+r_reg15 <= i15;
+
+count_reg <= 'b0;
+
+end
+
+else if(CE) begin
+
+state_reg <= state_next;
+
+r_reg0 <= r_next0;
+
+r_reg1 <= r_next1;
+
+r_reg2 <= r_next2;
+
+r_reg3 <= r_next3;
+
+r_reg4 <= r_next4;
+
+r_reg5 <= r_next5;
+
+r_reg6 <= r_next6;
+
+r_reg7 <= r_next7;
+
+r_reg8 <= r_next8;
+
+r_reg9 <= r_next9;
+
+r_reg10 <= r_next10;
+
+r_reg11 <= r_next11;
+
+r_reg12 <= r_next12;
+
+r_reg13 <= r_next13;
+
+r_reg14 <= r_next14;
+
+r_reg15 <= r_next15;
+
+count_reg <= count_next;
+
+end
+
+
+assign q0 = r_reg0;
+
+assign q1 = r_reg1;
+
+assign q2 = r_reg2;
+
+assign q3 = r_reg3;
+
+assign q4 = r_reg4;
+
+assign q5 = r_reg5;
+
+assign q6 = r_reg6;
+
+assign q7 = r_reg7;
+
+assign q8 = r_reg8;
+
+assign q9 = r_reg9;
+
+assign q10 = r_reg10;
+
+assign q11 = r_reg11;
+
+assign q12 = r_reg12;
+
+assign q13 = r_reg13;
+
+assign q14 = r_reg14;
+
+assign q15 = r_reg15;
+
+
+always_comb begin
+
+case (s1)
+
+2'b00: begin
+
+s2 = 7'b1010101;
+
+l1_c0 = r_reg1;
+
+l1_c1 = r_reg15;
+
+l1_c2 = r_reg3;
+
+l1_c3 = r_reg13;
+
+l1_c4 = r_reg5;
+
+l1_c5 = r_reg11;
+
+l1_c6 = r_reg7;
+
+l1_c7 = r_reg9;
+
+end
+
+2'b01: begin
+
+s2 = 7'b0110011;
+
+l1_c0 = r_reg2;
+
+l1_c1 = r_reg3;
+
+l1_c2 = r_reg15;
+
+l1_c3 = r_reg14;
+
+l1_c4 = r_reg6;
+
+l1_c5 = r_reg7;
+
+l1_c6 = r_reg11;
+
+l1_c7 = r_reg10;
+
+end
+
+2'b10: begin
+
+s2 = 7'b0001111;
+
+l1_c0 = r_reg4;
+
+l1_c1 = r_reg5;
+
+l1_c2 = r_reg6;
+
+l1_c3 = r_reg7;
+
+l1_c4 = r_reg15;
+
+l1_c5 = r_reg14;
+
+l1_c6 = r_reg13;
+
+l1_c7 = r_reg12;
+
+end
+
+2'b11: begin
+
+s2 = 7'b0000000;
+
+l1_c0 = r_reg8;
+
+l1_c1 = r_reg9;
+
+l1_c2 = r_reg10;
+
+l1_c3 = r_reg11;
+
+l1_c4 = r_reg12;
+
+l1_c5 = r_reg13;
+
+l1_c6 = r_reg14;
+
+l1_c7 = r_reg15;
+
+end
+
+endcase
+
+end
+
+
+assign l0_c1 = s2[6] ? r_reg14 : r_reg1;
+
+assign l0_c2 = s2[5] ? r_reg13 : r_reg2;
+
+assign l0_c3 = s2[4] ? r_reg12 : r_reg3;
+
+assign l0_c4 = s2[3] ? r_reg11 : r_reg4;
+
+assign l0_c5 = s2[2] ? r_reg10 : r_reg5;
+
+assign l0_c6 = s2[1] ? r_reg9 : r_reg6;
+
+assign l0_c7 = s2[0] ? r_reg8 : r_reg7;
+
+
+always_comb begin
+
+a_d = 'b0;
+
+CE = 1'b1;
+
+unique case (count_reg)
+
+4'b0000: a_d = 8'b10011001;
+
+4'b0001: a_d = 8'b11000011;
+
+4'b0010: a_d = 8'b10100101;
+
+4'b0011: a_d = 8'b11110000;
+
+4'b0100: a_d = 8'b11001100;
+
+4'b0101: a_d = 8'b10101010;
+
+4'b0110: a_d = 8'b11111111;
+
+4'b0111: a_d = 8'b11111111;
+
+4'b1000: a_d = 8'b11111111;
+
+4'b1001: a_d = 8'b11111111;
+
+4'b1010: CE = 1'b0;
+
+endcase
+
+end
+
+
+compare c0(r_reg0, l1_c0, a_d[7], int_q0, int_q1);
+
+compare c1(l0_c1, l1_c1, a_d[6], int_q2, int_q3);
+
+compare c2(l0_c2, l1_c2, a_d[5], int_q4, int_q5);
+
+compare c3(l0_c3, l1_c3, a_d[4], int_q6, int_q7);
+
+compare c4(l0_c4, l1_c4, a_d[3], int_q8, int_q9);
+
+compare c5(l0_c5, l1_c5, a_d[2], int_q10, int_q11);
+
+compare c6(l0_c6, l1_c6, a_d[1], int_q12, int_q13);
+
+compare c7(l0_c7, l1_c7, a_d[0], int_q14, int_q15);
+
+
+always_comb begin
+
+r_next0 = int_q0;
+
+case (s1)
+
+2'b00: begin
+
+r_next1 = int_q1;
+
+r_next2 = int_q4;
+
+r_next3 = int_q5;
+
+r_next4 = int_q8;
+
+r_next5 = int_q9;
+
+r_next6 = int_q12;
+
+r_next7 = int_q13;
+
+r_next8 = int_q14;
+
+r_next9 = int_q15;
+
+r_next10 = int_q10;
+
+r_next11 = int_q11;
+
+r_next12 = int_q6;
+
+r_next13 = int_q7;
+
+r_next14 = int_q2;
+
+r_next15 = int_q3;
+
+end
+
+2'b01: begin
+
+r_next1 = int_q2;
+
+r_next2 = int_q1;
+
+r_next3 = int_q3;
+
+r_next4 = int_q8;
+
+r_next5 = int_q10;
+
+r_next6 = int_q9;
+
+r_next7 = int_q11;
+
+r_next8 = int_q14;
+
+r_next9 = int_q12;
+
+r_next10 = int_q15;
+
+r_next11 = int_q13;
+
+r_next12 = int_q6;
+
+r_next13 = int_q4;
+
+r_next14 = int_q7;
+
+r_next15 = int_q5;
+
+end
+
+2'b10: begin
+
+r_next1 = int_q2;
+
+r_next2 = int_q4;
+
+r_next3 = int_q6;
+
+r_next4 = int_q1;
+
+r_next5 = int_q3;
+
+r_next6 = int_q5;
+
+r_next7 = int_q7;
+
+r_next8 = int_q14;
+
+r_next9 = int_q12;
+
+r_next10 = int_q10;
+
+r_next11 = int_q8;
+
+r_next12 = int_q15;
+
+r_next13 = int_q13;
+
+r_next14 = int_q11;
+
+r_next15 = int_q9;
+
+end
+
+2'b11: begin
+
+r_next1 = int_q2;
+
+r_next2 = int_q4;
+
+r_next3 = int_q6;
+
+r_next4 = int_q8;
+
+r_next5 = int_q10;
+
+r_next6 = int_q12;
+
+r_next7 = int_q14;
+
+r_next8 = int_q1;
+
+r_next9 = int_q3;
+
+r_next10 = int_q5;
+
+r_next11 = int_q7;
+
+r_next12 = int_q9;
+
+r_next13 = int_q11;
+
+r_next14 = int_q13;
+
+r_next15 = int_q15;
+
+end
+
+endcase
+
+end
+
+
+always_comb begin
+
+unique case (state_reg)
+
+state0: begin
+
+s1 = 2'b00;
+
+state_next = (count_reg == 4'b0000) ? state1 :
+
+(count_reg == 4'b0010) ? state2 :
+
+state3;
+
+end
+
+state1: begin
+
+s1 = 2'b01;
+
+state_next = state0;
+
+end
+
+state2: begin
+
+s1 = 2'b10;
+
+state_next = state1;
+
+end
+
+state3: begin
+
+s1 = 2'b11;
+
+state_next = state2;
+
+end
+
+endcase
+
+end
+
+
+assign count_next = count_reg + 4'b0001;
+
+
+endmodule
