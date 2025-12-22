@@ -1,0 +1,15 @@
+// MEM/WB pipeline register (2 bits: MemToReg, RegWr)
+
+module reg_WB (
+    input  logic        clk,
+    input  logic        rst,
+    input  logic [1:0] d,
+    output logic [1:0] q
+);
+    always_ff @(posedge clk) begin
+        if (rst)
+            q <= '0;
+        else
+            q <= d;
+    end
+endmodule 

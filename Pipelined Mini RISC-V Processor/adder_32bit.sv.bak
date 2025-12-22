@@ -1,0 +1,14 @@
+//`timescale 1ns / 1ps
+
+// basic 32-bit adder
+
+module adder_32bit (
+    input logic [31:0] a,
+    input logic [31:0] b,
+    output logic [31:0] sum
+);
+
+    assign sum = a + b;
+
+endmodule
+

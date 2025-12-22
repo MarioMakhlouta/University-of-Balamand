@@ -1,0 +1,151 @@
+// Instruction Memory (IM) Module for RISC-V Processor Pipeline
+// Read-only memory for storing instructions
+// Synchronous read (recommended for FPGA block RAM inference)
+
+module imem (
+    input logic clk,                    // Clock signal
+    input logic [31:0] addr,            // Instruction address (word-aligned)
+    
+    output logic [31:0] instruction     // Instruction output
+);
+
+    // Instruction memory: 1024 words (4KB), can be adjusted
+    // Address range: 0x00000000 to 0x00000FFC (word addresses)
+    // Note: RISC-V addresses are byte addresses, but we use word addresses here
+    // For byte addressing, use addr[11:2] for word index
+    
+    // Memory array - will infer block RAM in Quartus
+    logic [31:0] memory [0:1023];       // 1024 instructions (4KB)
+    
+    // Initialize memory with RISC-V instructions
+    initial begin
+        // Initialize all locations to NOP instruction (ADDI x0, x0, 0)
+        for (int i = 0; i < 1024; i++) begin
+            memory[i] = 32'h00000013;   // ADDI x0, x0, 0 (NOP)
+        end
+        
+        // Instruction Program - RISC-V RV32I Instructions
+        // Using instruction encoding: [31:25] func7, [24:20] rs2, [19:15] rs1, [14:12] func3, [11:7] rd, [6:0] opcode
+        
+        // I-Type Instructions (ADDI, LW, etc.)
+        memory[0] = 32'h00100093;   // ADDI x1, x0, 1        : x1 = 0 + 1 = 1
+        memory[1] = 32'h00200113;   // ADDI x2, x0, 2        : x2 = 0 + 2 = 2
+        memory[2] = 32'h00300193;   // ADDI x3, x0, 3        : x3 = 0 + 3 = 3
+        memory[3] = 32'h00400213;   // ADDI x4, x0, 4        : x4 = 0 + 4 = 4
+        memory[4] = 32'h00500293;   // ADDI x5, x0, 5        : x5 = 0 + 5 = 5
+        
+        // R-Type Instructions (ADD, SUB, AND, OR, XOR, etc.)
+        memory[5] = 32'h002081B3;   // ADD x3, x1, x2        : x3 = x1 + x2 = 1 + 2 = 3
+        memory[6] = 32'h40310133;   // SUB x2, x2, x3        : x2 = x2 - x3 = 2 - 3 = -1
+        memory[7] = 32'h00208233;   // ADD x4, x1, x2        : x4 = x1 + x2 = 1 + (-1) = 0
+        memory[8] = 32'h0031F2B3;   // AND x5, x3, x3        : x5 = x3 & x3 = 3
+        memory[9] = 32'h0031E2B3;   // OR x5, x3, x3         : x5 = x3 | x3 = 3
+        memory[10] = 32'h003142B3;  // XOR x5, x2, x3        : x5 = x2 ^ x3
+        
+        // I-Type Logical Instructions (opcode: 0010011)
+        memory[11] = 32'h00F0F093;  // ANDI x1, x1, 15       : x1 = x1 & 15
+        memory[12] = 32'h00F0E093;  // ORI x1, x1, 15        : x1 = x1 | 15
+        memory[13] = 32'h00F14093;  // XORI x1, x2, 15       : x1 = x2 ^ 15
+        
+        // I-Type Shift Instructions
+        memory[14] = 32'h00109093;  // SLLI x1, x1, 1        : x1 = x1 << 1
+        memory[15] = 32'h4010D093;  // SRLI x1, x1, 1        : x1 = x1 >> 1 (logical)
+        memory[16] = 32'h40115093;  // SRAI x1, x1, 1        : x1 = x1 >>> 1 (arithmetic)
+        
+        // I-Type Set Less Than Instructions
+        // SLTI: opcode=0010011, func3=010, imm[11:0]=immediate value
+        memory[17] = 32'h0030A093;  // SLTI x1, x1, 3        : x1 = (signed x1 < 3) ? 1 : 0
+        memory[18] = 32'h0030B093;  // SLTIU x1, x1, 3       : x1 = (unsigned x1 < 3) ? 1 : 0
+        memory[19] = 32'h00A0A093;  // SLTI x1, x1, 10       : x1 = (signed x1 < 10) ? 1 : 0
+        memory[20] = 32'h00A0B093;  // SLTIU x1, x1, 10      : x1 = (unsigned x1 < 10) ? 1 : 0
+        
+        // R-Type Set Less Than Instructions
+        // SLT: opcode=0110011, func3=010, func7=0000000
+        // SLTU: opcode=0110011, func3=011, func7=0000000
+        memory[21] = 32'h0021A233;  // SLT x4, x3, x2        : x4 = (signed x3 < x2) ? 1 : 0
+        memory[22] = 32'h0021B233;  // SLTU x4, x3, x2       : x4 = (unsigned x3 < x2) ? 1 : 0
+        memory[23] = 32'h0011A2B3;  // SLT x5, x3, x1        : x5 = (signed x3 < x1) ? 1 : 0
+        memory[24] = 32'h0011B2B3;  // SLTU x5, x3, x1       : x5 = (unsigned x3 < x1) ? 1 : 0
+        
+        // R-Type Shift Instructions
+        memory[25] = 32'h001191B3;  // SLL x3, x3, x1        : x3 = x3 << x1[4:0]
+        memory[26] = 32'h0011D1B3;  // SRL x3, x3, x1        : x3 = x3 >> x1[4:0] (logical)
+        memory[27] = 32'h4011D1B3;  // SRA x3, x3, x1        : x3 = x3 >>> x1[4:0] (arithmetic)
+        
+        // Load Word Instruction (LW)
+        // LW rd, offset(rs1) - Load word from memory at address (rs1 + offset)
+        // Offset is 12-bit signed immediate (forced to 0 for this project)
+        memory[28] = 32'h0000A083;  // LW x1, 0(x1)          : x1 = mem[x1 + 0] (offset forced to 0)
+        memory[29] = 32'h0000A103;  // LW x2, 0(x1)          : x2 = mem[x1 + 0] (offset forced to 0)
+        
+        // Store Word Instruction (SW)
+        // SW rs2, offset(rs1) - Store word to memory at address (rs1 + offset)
+        // Offset is 12-bit signed immediate (forced to 0 for this project)
+        memory[30] = 32'h0020A023;  // SW x2, 0(x1)          : mem[x1 + 0] = x2 (offset forced to 0)
+        memory[31] = 32'h0030A223;  // SW x3, 0(x1)          : mem[x1 + 0] = x3 (offset forced to 0; rs2=x3)
+        
+        // Additional zero-offset memory ops for this project
+        memory[32] = 32'h0000A203;  // LW x4, 0(x1)          : x4 = mem[x1 + 0]
+        memory[33] = 32'h0040A023;  // SW x4, 0(x1)          : mem[x1 + 0] = x4
+        
+        // Branch Instructions
+        // BEQ rs1, rs2, offset - Branch if rs1 == rs2
+        // BNE rs1, rs2, offset - Branch if rs1 != rs2
+        // Offset is 12-bit signed immediate, multiplied by 2 (byte offset)
+        memory[34] = 32'h00208663;  // BEQ x1, x2, 12        : if (x1 == x2) PC = PC + 12
+        memory[35] = 32'h00309663;  // BNE x1, x3, 12        : if (x1 != x3) PC = PC + 12
+        
+        // More arithmetic operations
+        memory[36] = 32'h00108233;  // ADD x4, x1, x1        : x4 = x1 + x1
+        memory[37] = 32'h00210333;  // ADD x6, x2, x2        : x6 = x2 + x2
+        memory[38] = 32'h00318433;  // ADD x8, x3, x3        : x8 = x3 + x3
+        
+        // Complex example: Compute sum of registers
+        memory[39] = 32'h00408233;  // ADD x4, x1, x4        : x4 = x1 + x4
+        memory[40] = 32'h00508333;  // ADD x6, x1, x5        : x6 = x1 + x5
+        memory[41] = 32'h00610433;  // ADD x8, x2, x6        : x8 = x2 + x6
+        
+        // Loop-like structure with branches
+        memory[42] = 32'h00100093;  // ADDI x1, x0, 1        : x1 = 1 (loop counter)
+        memory[43] = 32'h00A00113;  // ADDI x2, x0, 10       : x2 = 10 (loop limit)
+        memory[44] = 32'h00108293;  // ADDI x5, x1, 1        : x5 = x1 + 1
+        memory[45] = 32'h00228663;  // BNE x5, x2, 12        : if (x5 != x2) branch
+        
+        // Additional test cases
+        memory[46] = 32'hFFF00093;  // ADDI x1, x0, -1       : x1 = -1 (test signed)
+        memory[47] = 32'h00108193;  // ADDI x3, x1, 1        : x3 = x1 + 1 = 0
+        memory[48] = 32'h00009663;  // BNE x1, x0, 12        : if (x1 != 0) branch
+        memory[49] = 32'h00008663;  // BEQ x1, x0, 12        : if (x1 == 0) branch
+        
+        // End of program - fill rest with NOPs
+        // All locations after memory[43] already initialized to NOP (ADDI x0, x0, 0)
+    end
+    
+    // ------------------------------------------------------------------
+    // Optional alternative initialization from a hex file (RARS output)
+    // Uncomment this block if you want to load instructions from a file
+    // generated by the RARS assembler/emulator.
+    //
+    // initial begin
+    //     // file generated by RARS
+    //     $readmemh("instr_mem.hex", mem);
+    // end
+    //
+    // Note: If your memory array name is 'memory' (as in this file),
+    // you can alternatively use:
+    // initial begin
+    //     // file generated by RARS
+    //     $readmemh("instr_mem.hex", memory);
+    // end
+    // ------------------------------------------------------------------
+    
+    // Synchronous read
+    always_ff @(posedge clk) begin
+        // Use lower bits of address for word indexing
+        // If addr is byte address, use addr[11:2] or addr[31:2]
+        // If addr is word address, use addr[9:0] or addr[31:2]
+        instruction <= memory[addr[11:2]];  // Word-aligned address (divide by 4)
+    end
+
+endmodule
+

@@ -1,0 +1,76 @@
+// Forwarding Unit for RISC-V Processor Pipeline
+// Handles data hazards by forwarding data from MEM and WB stages to EX stage
+// Pipeline stages: IF -> ID -> EX/MEM -> WB
+//
+// Forwarding cases:
+// 1. EX hazard: ADD x1, x2, x3; SUB x4, x1, x1
+//    - Forward from MEM stage (ALU result) to EX stage
+// 2. MEM hazard: ADD x1, x2, x3; SUB x4, x1, x5
+//    - Forward from WB stage (ALU result or memory data) to EX stage
+//
+// Note: Register file is NOT write early and read late (standard synchronous)
+
+module forwarding_unit (
+    // Source registers from ID/EX stage (current instruction in EX)
+    input logic [4:0] rs1_addr,      // Source register 1 address (from ID/EX)
+    input logic [4:0] rs2_addr,      // Source register 2 address (from ID/EX)
+    
+    // Destination register from EX/MEM stage (instruction in MEM)
+    input logic [4:0] rd_MEM,        // Destination register from MEM stage
+    input logic       RegWr_MEM,     // Register write enable from MEM stage (EX_Control or separate)
+    
+    // Destination register from MEM/WB stage (instruction in WB)
+    input logic [4:0] rd_WB,         // Destination register from WB stage
+    input logic       RegWr_WB,      // Register write enable from WB stage (WB_Control[1])
+    
+    // Forwarding control signals (mux select for ALU inputs)
+    output logic [1:0] ForwardA,     // Forwarding control for ALU input A (rs1)
+                                      // 00: Use register file data
+                                      // 01: Forward from MEM stage (ALU result)
+                                      // 10: Forward from WB stage (ALU result or memory data)
+    output logic [1:0] ForwardB     // Forwarding control for ALU input B (rs2)
+                                      // 00: Use register file data
+                                      // 01: Forward from MEM stage (ALU result)
+                                      // 10: Forward from WB stage (ALU result or memory data)
+);
+
+    // Forwarding logic for ALU input A (rs1)
+    always_comb begin
+        // Priority 1: Forward from MEM stage (EX hazard)
+        // Condition: MEM stage writes to register AND rd_MEM == rs1 AND rd_MEM != 0
+        if (RegWr_MEM && (rd_MEM != 5'b00000) && (rd_MEM == rs1_addr)) begin
+            ForwardA = 2'b01;  // Forward from MEM stage
+        end
+        // Priority 2: Forward from WB stage (MEM hazard)
+        // Condition: WB stage writes to register AND rd_WB == rs1 AND rd_WB != 0
+        // AND (not forwarding from MEM stage, or MEM stage doesn't write to same register)
+        else if (RegWr_WB && (rd_WB != 5'b00000) && (rd_WB == rs1_addr)) begin
+            ForwardA = 2'b10;  // Forward from WB stage
+        end
+        // Default: Use register file data
+        else begin
+            ForwardA = 2'b00;  // Use register file
+        end
+    end
+    
+    // Forwarding logic for ALU input B (rs2)
+    always_comb begin
+        // Priority 1: Forward from MEM stage (EX hazard)
+        // Condition: MEM stage writes to register AND rd_MEM == rs2 AND rd_MEM != 0
+        if (RegWr_MEM && (rd_MEM != 5'b00000) && (rd_MEM == rs2_addr)) begin
+            ForwardB = 2'b01;  // Forward from MEM stage
+        end
+        // Priority 2: Forward from WB stage (MEM hazard)
+        // Condition: WB stage writes to register AND rd_WB == rs2 AND rd_WB != 0
+        // AND (not forwarding from MEM stage, or MEM stage doesn't write to same register)
+        else if (RegWr_WB && (rd_WB != 5'b00000) && (rd_WB == rs2_addr)) begin
+            ForwardB = 2'b10;  // Forward from WB stage
+        end
+        // Default: Use register file data
+        else begin
+            ForwardB = 2'b00;  // Use register file
+        end
+    end
+
+endmodule
+

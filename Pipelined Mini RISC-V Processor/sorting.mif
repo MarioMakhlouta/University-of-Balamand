@@ -1,0 +1,94 @@
+-- Quartus Prime Memory Initialization File (.mif)
+-- Generated from RISC-V Machine Code
+-- Program Length: 64 words (0 to 63)
+-- Data Width: 32 bits (4 bytes per instruction)
+
+DEPTH = 1024; 
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT BEGIN
+    00 : 01100093;  -- addi x1, x0, 17
+    01 : 00500113;  -- addi x2, x0, 5
+    02 : 00C00193;  -- addi x3, x0, 12
+    03 : 00700213;  -- addi x4, x0, 7
+    04 : 01400293;  -- addi x5, x0, 20
+    05 : 00100313;  -- addi x6, x0, 1
+    06 : 00900393;  -- addi x7, x0, 9
+    07 : 00300413;  -- addi x8, x0, 3
+    
+    08 : 08000513;  -- addi x10, x0, 0x80 (Base Address)
+    09 : 00152023;  -- sw x1, 0(x10)
+    0A : 00450513;  -- addi x10, x10, 4
+    0B : 00252023;  -- sw x2, 0(x10)
+    0C : 00450513;  -- addi x10, x10, 4
+    0D : 00352023;  -- sw x3, 0(x10)
+    0E : 00450513;  -- addi x10, x10, 4
+    0F : 00452023;  -- sw x4, 0(x10)
+    10 : 00450513;  -- addi x10, x10, 4
+    11 : 00552023;  -- sw x5, 0(x10)
+    12 : 00450513;  -- addi x10, x10, 4
+    13 : 00652023;  -- sw x6, 0(x10)
+    14 : 00450513;  -- addi x10, x10, 4
+    15 : 00752023;  -- sw x7, 0(x10)
+    16 : 00450513;  -- addi x10, x10, 4
+    17 : 00852023;  -- sw x8, 0(x10)
+    
+    18 : 00700593;  -- addi x11, x0, 7 (Outer loop limit)
+    
+    19 : 08000513;  -- outer_loop: addi x10, x0, 0x80 (reset pointer)
+    1A : 00700613;  -- addi x12, x0, 7 (Inner loop limit)
+    
+    1B : 00052703;  -- inner_loop: lw x14, 0(x10) (A[i])
+    1C : 00450693;  -- addi x13, x10, 4 (A[i+1] address)
+    1D : 0006A783;  -- lw x15, 0(x13) (A[i+1])
+    
+    1E : 00F724B3;  -- slt x9, x14, x15 (if A[i] < A[i+1], x9=1)
+    1F : 00048E63;  -- beq x9, x0, do_swap (if x9=0/A[i]>=A[i+1], goto swap)
+    
+    20 : 00450513;  -- no_swap: addi x10, x10, 4
+    21 : FFF60613;  -- addi x12, x12, -1
+    22 : FE0612E3;  -- bne x12, x0, inner_loop
+    23 : FFF58593;  -- addi x11, x11, -1
+    24 : FC059AE3;  -- bne x11, x0, outer_loop
+    25 : 02000063;  -- beq x0, x0, done
+    
+    26 : 00F52023;  -- do_swap: sw x15, 0(x10) (A[i] = A[i+1])
+    27 : 00E6A023;  -- sw x14, 0(x13) (A[i+1] = A[i])
+    28 : 00450513;  -- addi x10, x10, 4
+    29 : FFF60613;  -- addi x12, x12, -1
+    2A : FC0612E3;  -- bne x12, x0, inner_loop
+    2B : FFF58593;  -- addi x11, x11, -1
+    2C : FA059AE3;  -- bne x11, x0, outer_loop
+    
+    2D : 08000513;  -- done: addi x10, x0, 0x80 (reset pointer for loading)
+    2E : 00052083;  -- lw x1, 0(x10)
+    2F : 00450513;  -- addi x10, x10, 4
+    30 : 00052103;  -- lw x2, 0(x10)
+    31 : 00450513;  -- addi x10, x10, 4
+    32 : 00052183;  -- lw x3, 0(x10)
+    33 : 00450513;  -- addi x10, x10, 4
+    34 : 00052203;  -- lw x4, 0(x10)
+    35 : 00450513;  -- addi x10, x10, 4
+    36 : 00052283;  -- lw x5, 0(x10)
+    37 : 00450513;  -- addi x10, x10, 4
+    38 : 00052303;  -- lw x6, 0(x10)
+    39 : 00450513;  -- addi x10, x10, 4
+    3A : 00052383;  -- lw x7, 0(x10)
+    3B : 00450513;  -- addi x10, x10, 4
+    3C : 00052403;  -- lw x8, 0(x10)
+
+    3D : 00008033;  
+    3E : 00010033;
+    3F : 00018033; 
+    40 : 00020033;
+    41 : 00028033; 
+    42 : 00030033; 
+    43 : 00038033;
+    44 : 00040033;
+
+    45 : 00000063;  -- here: beq x0, x0, here (Halt)
+
+    [3E..3F] : 00000000; -- Fill remaining memory with NOPs (or zeros)
+END;

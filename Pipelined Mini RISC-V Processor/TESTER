@@ -1,0 +1,42 @@
+Address     Code        Basic                        Line Source
+
+0x00400000  0x00500093  addi x1,x0,5                 7            addi x1, x0, 5         # x1 = 5
+0x00400004  0x00a00113  addi x2,x0,10                8            addi x2, x0, 10        # x2 = 10
+0x00400008  0x002081b3  add x3,x1,x2                 10           add  x3, x1, x2        # x3 = 5 + 10 = 15
+0x0040000c  0x40110233  sub x4,x2,x1                 11           sub  x4, x2, x1        # x4 = 10 - 5 = 5
+0x00400010  0x0020f2b3  and x5,x1,x2                 13           and  x5, x1, x2        # x5 = 5 & 10
+0x00400014  0x0020e333  or x6,x1,x2                  14           or   x6, x1, x2        # x6 = 5 | 10
+0x00400018  0x0020c3b3  xor x7,x1,x2                 15           xor  x7, x1, x2        # x7 = 5 ^ 10
+0x0040001c  0x0020a433  slt x8,x1,x2                 17           slt  x8, x1, x2        # x8 = 1 (5 < 10 signed)
+0x00400020  0x001124b3  slt x9,x2,x1                 18           slt  x9, x2, x1        # x9 = 0 (10 < 5 signed? no)
+0x00400024  0x0020b533  sltu x10,x1,x2               20           sltu x10, x1, x2       # x10 = 1 (5 < 10 unsigned)
+0x00400028  0x001135b3  sltu x11,x2,x1               21           sltu x11, x2, x1       # x11 = 0
+0x0040002c  0x00f00613  addi x12,x0,15               25           addi x12, x0, 15       # x12 = 15  (0b0000_1111)
+0x00400030  0x00367693  andi x13,x12,3               26           andi x13, x12, 3       # x13 = 15 & 3 = 3
+0x00400034  0x00806713  ori x14,x0,8                 27           ori  x14, x0, 8        # x14 = 8
+0x00400038  0x00f64793  xori x15,x12,15              28           xori x15, x12, 0xF     # x15 = 15 ^ 15 = 0
+0x0040003c  0x00700813  addi x16,x0,7                30           addi x16, x0, 7        # x16 = 7
+0x00400040  0x00a82893  slti x17,x16,10              31           slti x17, x16, 10      # x17 = 1 (7 < 10 signed)
+0x00400044  0x00a83913  sltiu x18,x16,10             32           sltiu x18, x16, 10     # x18 = 1 (7 < 10 unsigned)
+0x00400048  0x00181993  slli x19,x16,1               34           slli x19, x16, 1       # x19 = 7 << 1 = 14
+0x0040004c  0x00185a13  srli x20,x16,1               35           srli x20, x16, 1       # x20 = 7 >> 1 = 3 (logical)
+0x00400050  0x40185a93  srai x21,x16,1               36           srai x21, x16, 1       # x21 = 7 >> 1 = 3 (arith)
+0x00400054  0x00100b13  addi x22,x0,1                40           addi x22, x0, 1        # shift amount = 1
+0x00400058  0x01681bb3  sll x23,x16,x22              41           sll  x23, x16, x22     # x23 = 7 << 1 = 14
+0x0040005c  0x01685c33  srl x24,x16,x22              42           srl  x24, x16, x22     # x24 = 7 >> 1 = 3 (logical)
+0x00400060  0x41685cb3  sra x25,x16,x22              43           sra  x25, x16, x22     # x25 = 7 >> 1 = 3 (arith)
+0x00400064  0x10000d13  addi x26,x0,0x00000100       48           addi x26, x0, 0x100    # x26 = 0x100
+0x00400068  0x003d2023  sw x3,0(x26)                 51           sw   x3, 0(x26)
+0x0040006c  0x004d0d13  addi x26,x26,4               54           addi x26, x26, 4       # x26 = 0x104
+0x00400070  0x004d2023  sw x4,0(x26)                 55           sw   x4, 0(x26)
+0x00400074  0x10000d13  addi x26,x0,0x00000100       58           addi x26, x0, 0x100    # x26 = 0x100
+0x00400078  0x000d2d83  lw x27,0(x26)                59           lw   x27, 0(x26)       # x27 = [0x100] = 15
+0x0040007c  0x004d0d13  addi x26,x26,4               61           addi x26, x26, 4       # x26 = 0x104
+0x00400080  0x000d2e03  lw x28,0(x26)                62           lw   x28, 0(x26)       # x28 = [0x104] = 5
+0x00400084  0x00500e93  addi x29,x0,5                66           addi x29, x0, 5        # x29 = counter = 5
+0x00400088  0x00000f13  addi x30,x0,0                67           addi x30, x0, 0        # x30 = sum = 0
+0x0040008c  0x000e8863  beq x29,x0,0x00000010        70           beq  x29, x0, done     # if counter == 0 -> exit loop
+0x00400090  0x01df0f33  add x30,x30,x29              72           add  x30, x30, x29     # sum += counter
+0x00400094  0xfffe8e93  addi x29,x29,0xffffffff      73           addi x29, x29, -1      # counter--
+0x00400098  0xfe0e9ae3  bne x29,x0,0xfffffff4        75           bne  x29, x0, loop     # if counter != 0 -> repeat
+0x0040009c  0x00000063  beq x0,x0,0x00000000         81           beq  x0, x0, end       # infinite loop (halt)

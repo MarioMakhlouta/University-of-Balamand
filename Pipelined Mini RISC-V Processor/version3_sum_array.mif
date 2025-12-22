@@ -1,0 +1,51 @@
+-- Quartus Prime Memory Initialization File (.mif)
+-- Generated from RISC-V Machine Code (version3_sum_array.hex)
+-- Program Length: 34 instructions
+-- Memory Configuration: Depth 1024 (1K), Width 32
+
+DEPTH = 1024;
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT BEGIN
+    000 : 01100093;
+    001 : 00500113;
+    002 : 00C00193;
+    003 : 00700213;
+    004 : 01400293;
+    005 : 00100313;
+    006 : 00900393;
+    007 : 00300413;
+    
+    008 : 08000493;
+    009 : 0014A023;
+    00A : 00448493;
+    00B : 0024A023;
+    00C : 00448493;
+    00D : 0034A023;
+    00E : 00448493;
+    00F : 0044A023;
+    010 : 00448493;
+    011 : 0054A023;
+    012 : 00448493;
+    013 : 0064A023;
+    014 : 00448493;
+    015 : 0074A023;
+    016 : 00448493;
+    017 : 0084A023;
+    018 : 00000513;
+    
+    019 : 00800593;
+    01A : 08000493;
+    01B : 0004A603;
+    01C : 00C50533;
+    01D : 00448493;
+    01E : FFF58593;
+    01F : FE0598E3;
+    020 : 00050033;
+    021 : 00000063;
+    
+    -- Fill remaining memory (addresses 0x022 through 0x3FF) with zeros
+    [022..3FF] : 00000000;
+END;

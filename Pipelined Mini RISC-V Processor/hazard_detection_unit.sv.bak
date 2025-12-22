@@ -1,0 +1,60 @@
+// Hazard Detection Unit for RISC-V Processor Pipeline
+// Detects load-use hazards that require pipeline stalls
+//
+// Pipeline stages: IF -> ID -> EX/MEM -> WB
+//
+// Load-Use Hazard:
+//   LW x1, 0(x2)    (in EX/MEM stage, about to read from memory)
+//   ADD x3, x1, x4  (in ID stage, will need x1 in next cycle)
+//
+// Solution: Insert pipeline bubble (stall) for one cycle
+//
+// Note: This unit detects hazards that cannot be resolved by forwarding alone
+
+module hazard_detection_unit (
+    // Instruction in EX/MEM stage (potentially LW)
+    input logic [4:0] rd_MEM,        // Destination register from EX/MEM stage
+    input logic       MemRd_MEM,     // Memory read signal (1 if LW instruction)
+    
+    // Instruction in ID stage (may depend on LW result)
+    input logic [4:0] rs1_addr_ID,   // Source register 1 from ID stage
+    input logic [4:0] rs2_addr_ID,   // Source register 2 from ID stage
+    
+    // Hazard detection outputs
+    output logic Stall,              // Pipeline stall signal (1 = stall)
+                                      // When Stall = 1:
+                                      //   - PC should not update (PCWrite = 0)
+                                      //   - IF/ID register should not update (IF_IDWrite = 0)
+                                      //   - ID/EX register should be cleared (insert bubble)
+    output logic PCWrite,            // PC write enable (0 when stalling)
+    output logic IF_IDWrite,         // IF/ID register write enable (0 when stalling)
+    output logic ID_EX_Flush         // ID/EX register flush (1 to insert bubble)
+);
+
+    // Load-use hazard detection
+    // Hazard occurs when:
+    // 1. Instruction in EX/MEM is a load (MemRd_MEM = 1)
+    // 2. Load destination (rd_MEM) matches source register in ID stage (rs1 or rs2)
+    // 3. Destination register is not x0 (x0 cannot be loaded)
+    
+    always_comb begin
+        // Check for load-use hazard
+        if (MemRd_MEM && 
+            (rd_MEM != 5'b00000) && 
+            ((rd_MEM == rs1_addr_ID) || (rd_MEM == rs2_addr_ID))) begin
+            // Load-use hazard detected: Stall pipeline
+            Stall = 1'b1;
+            PCWrite = 1'b0;       // Prevent PC update
+            IF_IDWrite = 1'b0;    // Prevent IF/ID register update
+            ID_EX_Flush = 1'b1;   // Insert bubble in ID/EX (clear register)
+        end else begin
+            // No hazard: Normal pipeline operation
+            Stall = 1'b0;
+            PCWrite = 1'b1;       // Allow PC update
+            IF_IDWrite = 1'b1;    // Allow IF/ID register update
+            ID_EX_Flush = 1'b0;   // No bubble needed
+        end
+    end
+
+endmodule
+

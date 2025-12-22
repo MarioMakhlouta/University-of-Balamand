@@ -1,0 +1,39 @@
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name TOP_LEVEL_ENTITY Project
+
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+set_global_assignment -name DEVICE 5CGXFC7C7F23C8
+set_global_assignment -name QIP_FILE NancyMux.qip
+set_global_assignment -name QIP_FILE MuxTwoToOne.qip
+set_global_assignment -name QIP_FILE MemoryIM.qip
+set_global_assignment -name QIP_FILE MarioMux.qip
+set_global_assignment -name QIP_FILE MarioMemoryOne.qip
+set_global_assignment -name QIP_FILE MarioMemory.qip
+set_global_assignment -name BDF_FILE Project.bdf
+set_global_assignment -name SYSTEMVERILOG_FILE reg_WB.sv
+set_global_assignment -name SYSTEMVERILOG_FILE reg_func7.sv
+set_global_assignment -name SYSTEMVERILOG_FILE reg_func3.sv
+set_global_assignment -name SYSTEMVERILOG_FILE reg_ExMem.sv
+set_global_assignment -name SYSTEMVERILOG_FILE regfile.sv
+set_global_assignment -name SYSTEMVERILOG_FILE reg5.sv
+set_global_assignment -name SYSTEMVERILOG_FILE reg32_IR.sv
+set_global_assignment -name SYSTEMVERILOG_FILE reg32.sv
+set_global_assignment -name SYSTEMVERILOG_FILE pc_adder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE pc.sv
+set_global_assignment -name SYSTEMVERILOG_FILE Main_CU.sv
+set_global_assignment -name SYSTEMVERILOG_FILE imm_gen.sv
+set_global_assignment -name SYSTEMVERILOG_FILE imem.sv
+set_global_assignment -name SYSTEMVERILOG_FILE hazard_detection_unit.sv
+set_global_assignment -name SYSTEMVERILOG_FILE forwarding_unit.sv
+set_global_assignment -name SYSTEMVERILOG_FILE forwarding_mux.sv
+set_global_assignment -name SYSTEMVERILOG_FILE dmem.sv
+set_global_assignment -name SYSTEMVERILOG_FILE comparator_32bit.sv
+set_global_assignment -name SYSTEMVERILOG_FILE alu_tb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ALU_CU.sv
+set_global_assignment -name SYSTEMVERILOG_FILE alu.sv
+set_global_assignment -name SYSTEMVERILOG_FILE adder_32bit.sv
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf

@@ -1,0 +1,69 @@
+DEPTH = 1024;
+WIDTH = 32;
+ADDRESS_RADIX = HEX;
+DATA_RADIX = HEX;
+
+CONTENT BEGIN
+    00 : 01100093;  -- addi x1, x0, 17
+    01 : 00500113;  -- addi x2, x0, 5
+    02 : 00C00193;  -- addi x3, x0, 12
+    03 : 00700213;  -- addi x4, x0, 7
+
+    04 : 08000513;  -- addi x10, x0, 0x80 (base address)
+
+    05 : 00152023;  -- sw x1, 0(x10)
+    06 : 00450513;  -- addi x10, x10, 4
+
+    07 : 00252023;  -- sw x2, 0(x10)
+    08 : 00450513;  -- addi x10, x10, 4
+
+    09 : 00352023;  -- sw x3, 0(x10)
+    0A : 00450513;  -- addi x10, x10, 4
+
+    0B : 00452023;  -- sw x4, 0(x10)
+
+    0C : 00300593;  -- addi x11, x0, 3 (outer loop count = 3)
+
+    0D : 08000513;  -- addi x10, x0, 0x80 (reset pointer)
+    0E : 00300613;  -- addi x12, x0, 3 (inner loop count = 3)
+
+    0F : 00052703;  -- lw x14, 0(x10)      A[i]
+    10 : 00450693;  -- addi x13, x10, 4   &A[i+1]
+    11 : 0006A783;  -- lw x15, 0(x13)     A[i+1]
+
+    12 : 00F724B3;  -- slt x9, x14, x15   if A[i] < A[i+1], x9=1
+
+    13 : 00048C63;  -- beq x9, x0, do_swap
+
+    14 : 00450513;  -- addi x10, x10, 4      next element
+    15 : FFF60613;  -- addi x12, x12, -1     inner--  
+    16 : FE0610E3;  -- bne x12, x0, inner_loop
+
+    17 : FFF58593;  -- addi x11, x11, -1     outer--
+    18 : FC0598E3;  -- bne x11, x0, outer_loop
+
+    19 : 00000E63;  -- beq x0, x0, done
+
+    1A : 00F52023;  -- sw x15, 0(x10)     A[i] = A[i+1]
+    1B : 00E6A023;  -- sw x14, 0(x13)     A[i+1] = A[i]
+
+    1C : 00450513;  -- addi x10, x10, 4
+    1D : FFF60613;  -- addi x12, x12, -1
+    1E : FC0612E3;  -- bne x12, x0, inner_loop
+
+    1F : FFF58593;  -- addi x11, x11, -1
+    20 : FA0598E3;  -- bne x11, x0, outer_loop
+
+    21 : 08000513;  -- addi x10, x0, 0x80
+    22 : 00052083;  -- lw x1, 0(x10)
+    23 : 00450513;  -- addi x10, x10, 4
+    24 : 00052103;  -- lw x2, 0(x10)
+    25 : 00450513;  -- addi x10, x10, 4
+    26 : 00052183;  -- lw x3, 0(x10)
+    27 : 00450513;  -- addi x10, x10, 4
+    28 : 00052203;  -- lw x4, 0(x10)
+
+    29 : 00000063;  -- beq x0, x0, halt
+
+    [2A..3FF] : 00000000;
+END;
