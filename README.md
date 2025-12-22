@@ -107,6 +107,72 @@ Welcome to my GitHub repository! This collection includes various academic proje
   * SQL queries and data management
 * **Folder**: `Lifeblood Database`
 
+### 11. **Linux Privilege Escalation (CPEN341)**
+
+* **Description**: A cybersecurity project focused on privilege escalation in Linux/Unix systems through enumeration and exploitation of common misconfigurations and vulnerable binaries (SUID).
+* **Technologies Used**: Linux/Unix, Bash, Security Tools
+* **Key Features**:
+
+  * System enumeration and permission analysis
+  * SUID/SGID binary discovery and exploitation scenarios
+  * Misconfiguration detection (files, services, permissions)
+* **Folder**: `Linux Privilege Escalation`
+
+### 12. **Microwave Timer System – PIC18F45K22 (CPEN305)**
+
+* **Description**: An embedded system project implementing a microwave timer using the PIC18F45K22 microcontroller, including user input handling and timer control logic.
+* **Technologies Used**: C, PIC18F45K22, MPLAB IDE, Proteus
+* **Key Features**:
+
+  * Keypad input for setting time
+  * Timers and interrupts for countdown control
+  * Display control and system state handling
+* **Folder**: `Microwave Timer System – PIC18F45K22`
+
+### 13. **PLC-Based Industrial Automation System (CPEN307)**
+
+* **Description**: A PLC lab project simulating an industrial machine automation system using ladder logic, sensors, and actuators.
+* **Technologies Used**: PLC, Ladder Logic, Industrial Automation
+* **Key Features**:
+
+  * Sensor-based machine operation logic
+  * Actuator control (motors/valves/relays depending on setup)
+  * Basic safety logic and machine states
+* **Folder**: `PLC-Based Industrial Automation System`
+
+### 14. **OWASP Juice Shop Security Assessment (CPEN310)**
+
+* **Description**: A web application security assessment of OWASP Juice Shop focusing on reconnaissance and vulnerability analysis based on OWASP Top 10.
+* **Technologies Used**: OWASP Juice Shop, Web Security Tools, OWASP Top 10
+* **Key Features**:
+
+  * Reconnaissance and endpoint discovery
+  * Identification of OWASP Top 10 vulnerabilities
+  * Proof-of-concept testing in a controlled lab environment
+* **Folder**: `OWASP Juice Shop Security Assessment`
+
+### 15. **SSB-AM Communication System (ELEN341)**
+
+* **Description**: A telecommunications project simulating a Single Sideband AM (SSB-AM) communication system with modulation/demodulation and performance analysis.
+* **Technologies Used**: MATLAB, Simulink, Signal Processing
+* **Key Features**:
+
+  * SSB-AM modulation and demodulation blocks
+  * Signal visualization and analysis
+  * System performance evaluation under different conditions
+* **Folder**: `SSB-AM Communication System`
+
+### 16. **Pipelined Mini RISC-V Processor (CPEN314)**
+
+* **Description**: A computer architecture project designing a pipelined Mini RISC-V processor implementing key pipeline stages and hazard handling.
+* **Technologies Used**: Computer Architecture, RISC-V, HDL (Verilog/SystemVerilog), Simulation Tools
+* **Key Features**:
+
+  * Pipeline stages: IF, ID, EX/MEM, WB
+  * Pipeline hazard detection/handling (data/control hazards)
+  * Simulation and verification of instruction execution flow
+* **Folder**: `Pipelined Mini RISC-V Processor`
+
 ---
 
 ## **How to Use**
