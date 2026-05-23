@@ -173,6 +173,44 @@ Welcome to my GitHub repository! This collection includes various academic proje
   * Simulation and verification of instruction execution flow
 * **Folder**: `Pipelined Mini RISC-V Processor`
 
+### 17. **Transfer Learning in AI (CPEN349)**
+
+* **Description**: A research project for AI for Engineers exploring transfer learning — applying pre-trained models to new tasks to improve performance and reduce training cost.
+* **Technologies Used**: Python, Deep Learning frameworks (PyTorch / TensorFlow / Keras), Pre-trained models
+* **Key Features**:
+
+   * Literature review on transfer learning approaches
+   * Application of a pre-trained model to a new downstream task
+   * Comparison of fine-tuning vs. feature extraction strategies
+   * Results analysis and research report
+
+* **Folder**: `Transfer Learning in AI`
+
+### 18. **Secure Multi-threaded Banking System (CSIS221)**
+
+* **Description**: An Operating Systems project implementing a multi-threaded banking application with safe concurrent access to shared accounts and security against race conditions.
+* **Technologies Used**: C / C++ / Java, Threads, Mutexes / Semaphores
+* **Key Features**:
+
+   * Concurrent transactions across multiple accounts
+   * Synchronization using mutexes / semaphores to prevent race conditions
+   * Deadlock-aware design
+   * Secure handling of accounts and transaction integrity
+
+* **Folder**:  `Secure Multi-threaded Banking System`
+
+### 19. **Pulse Code Modulation – Simulink (ELEN306)**
+
+* **Description**: A Telecommunications Lab project implementing the Pulse Code Modulation (PCM) pipeline in Simulink: sampling, quantization, encoding, transmission, and reconstruction.
+* **Technologies Used**:  MATLAB, Simulink, Signal Processing
+* **Key Features**:
+
+   * Sampling and quantization of analog signals
+   * PCM encoding and decoding blocks
+   * Signal reconstruction and SNR analysis
+   * Visualization of waveforms at each pipeline stage
+
+* **Folder**: `Pulse Code Modulation`
 ---
 
 ## **How to Use**
